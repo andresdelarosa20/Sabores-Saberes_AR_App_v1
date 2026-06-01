@@ -13,34 +13,8 @@ MonoBehaviour:
   m_Name: ContentDatabase
   m_EditorClassIdentifier: 
   entries:
-  - barcodeValue: BC-001
-    title: El cucharon  de Mercedes
-    description: Esto es una vaina que se usa pa esta vuelta ya, Lorem ipsum dolor
-      sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-      ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-      mollit anim id est laborum.
-    image: {fileID: 0}
-    audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
-  - barcodeValue: 
-    title: 
-    description: 
-    image: {fileID: 0}
-    audioClip: {fileID: 0}
-  - barcodeValue: 
-    title: 
-    description: 
-    image: {fileID: 0}
-    audioClip: {fileID: 0}
-  - barcodeValue: 
-    title: 
-    description: 
-    image: {fileID: 0}
-    audioClip: {fileID: 0}
-  - barcodeValue: 
-    title: 
-    description: 
+  - barcodeValue: ASDASD
+    title: ASDSADSA
+    description: ASDSADSADSADSA
     image: {fileID: 0}
     audioClip: {fileID: 0}
