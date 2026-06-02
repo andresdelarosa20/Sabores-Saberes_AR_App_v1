@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - barcodeValue: 7702993052310
-    title: EL WESASO
+    title: titulo2
     description: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
     audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
   - barcodeValue: https://www.super.com.co
-    title: vivapetro
-    description: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeea MACARENA
+    title: titulo1
+    description: LOREMM IPSUM DJASJDASHJFAKJASFASDASF
     image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
     audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
