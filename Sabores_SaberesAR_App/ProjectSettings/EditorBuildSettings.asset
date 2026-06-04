@@ -6,18 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/0 - Homepage.unity
+    path: Assets/Scenes/Homepage.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/1 - Colecciones.unity
+    path: Assets/Scenes/SabermasScreen.unity
     guid: 50f334908e785ab4f8ef18e40bef8088
   - enabled: 1
-    path: Assets/Scenes/2 - Barcode - Escaner UI.unity
+    path: Assets/Scenes/Barcode.unity
     guid: 58ee9b66e23f8f249b0776a49f44ebcc
   - enabled: 1
     path: Assets/Scenes/InfoScreen.unity
     guid: 061e963fe579ff346b940a1a7b2a667e
   - enabled: 1
-    path: Assets/Scenes/4 - Donar.unity
+    path: Assets/Scenes/DonarScreen.unity
     guid: 33921dd05bc448d44b8e01736be40c8b
   m_configObjects: {}
