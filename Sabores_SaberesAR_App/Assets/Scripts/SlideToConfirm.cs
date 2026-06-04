@@ -3,12 +3,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class SlideToConfirmTutorial : MonoBehaviour, IPointerUpHandler
 {
 
     [Header("Bounce Animation")]
-    public RectTransform imageToMove;
+    public RectTransform image1;
+    public RectTransform image2;
+
+    public Vector2 start1;
+    public Vector2 target1;
+
+    public Vector2 start2;
+    public Vector2 target2;
 
     public Vector2 startPosition;
     public Vector2 targetPosition;
@@ -170,8 +178,9 @@ public class SlideToConfirmTutorial : MonoBehaviour, IPointerUpHandler
 
     private IEnumerator MoveWithBounce()
     {
-        // Posición inicial
-        imageToMove.anchoredPosition = startPosition;
+        // Posiciones iniciales
+        image1.anchoredPosition = start1;
+        image2.anchoredPosition = start2;
 
         float time = 0;
 
@@ -184,18 +193,23 @@ public class SlideToConfirmTutorial : MonoBehaviour, IPointerUpHandler
 
             // Suavizado
             t = Mathf.SmoothStep(0f, 1f, t);
-
-            imageToMove.anchoredPosition =
-                Vector2.Lerp(startPosition, targetPosition, t);
+            image1.anchoredPosition =
+                Vector2.Lerp(start1, target1, t);
+            image2.anchoredPosition =
+                Vector2.Lerp(start2, target2, t);
 
             yield return null;
         }
 
-        imageToMove.anchoredPosition = targetPosition;
+        // Asegurar posición final exacta
+        image1.anchoredPosition = target1;
+        image2.anchoredPosition = target2;
 
         // Bounce hacia arriba
-        Vector2 bounceTarget =
-            targetPosition + Vector2.up * bounceAmount;
+        Vector2 bounceTarget1 =
+            target1 + Vector2.up * bounceAmount;
+        Vector2 bounceTarget2 =
+            target2 + Vector2.up * bounceAmount;
 
         time = 0;
 
@@ -203,34 +217,34 @@ public class SlideToConfirmTutorial : MonoBehaviour, IPointerUpHandler
         {
             time += Time.deltaTime;
 
-            imageToMove.anchoredPosition =
-                Vector2.Lerp(
-                    targetPosition,
-                    bounceTarget,
-                    time / bounceDuration
-                );
+            float t = time / bounceDuration;
+            image1.anchoredPosition =
+                Vector2.Lerp(target1, bounceTarget1, t);
+            image2.anchoredPosition =
+                Vector2.Lerp(target2, bounceTarget2, t);
 
             yield return null;
         }
 
-        // Regresa a la posición final
+        // Regreso del bounce
         time = 0;
 
         while (time < bounceDuration)
         {
             time += Time.deltaTime;
 
-            imageToMove.anchoredPosition =
-                Vector2.Lerp(
-                    bounceTarget,
-                    targetPosition,
-                    time / bounceDuration
-                );
+            float t = time / bounceDuration;
+            image1.anchoredPosition =
+                Vector2.Lerp(bounceTarget1, target1, t);
+            image2.anchoredPosition =
+                Vector2.Lerp(bounceTarget2, target2, t);
 
             yield return null;
         }
 
-        imageToMove.anchoredPosition = targetPosition;
+        // Posición final exacta
+        image1.anchoredPosition = target1;
+        image2.anchoredPosition = target2;
     }
 
     // ==========================
