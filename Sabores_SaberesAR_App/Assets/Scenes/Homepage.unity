@@ -122,6 +122,28 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &38986495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9093350757910397344, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
+  m_PrefabInstance: {fileID: 1322675877594993375}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &38986499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38986495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889d5de1c16dded439d6e95324cb4b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationType: 1
+  scaleAmount: 0.1
+  pulseSpeed: 2
+  moveDistance: 12
+  moveSpeed: 2
 --- !u!1 &47222182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,12 +1333,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1466672759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a51c34657fc7ab4bb9cee5d27c8efc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 220a80359bf52414e86cedc1ffe22d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationType: FadeIn
-  duration: 0.5
-  distance: 500
+  animationType: 0
+  easingType: 3
+  enterDuration: 1.59
+  exitDuration: 0.4
+  enterDelay: 0
+  exitDelay: 0
+  slideDistance: 300
+  rotationAmount: 180
+  scaleStartValue: 0
+  playEnterOnEnable: 1
+  deactivateOnExitComplete: 1
+  useUnscaledTime: 0
+--- !u!1 &1641453473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1932580285011136251, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
+  m_PrefabInstance: {fileID: 1322675877594993375}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1641453477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641453473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889d5de1c16dded439d6e95324cb4b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationType: 0
+  scaleAmount: 0.1
+  pulseSpeed: 2
+  moveDistance: 20
+  moveSpeed: 1
 --- !u!1 &1883934959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,6 +1592,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 670492418983570673, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.653092
+      objectReference: {fileID: 0}
+    - target: {fileID: 670492418983570673, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.653092
+      objectReference: {fileID: 0}
+    - target: {fileID: 670492418983570673, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.653092
+      objectReference: {fileID: 0}
     - target: {fileID: 1125249353965492885, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1626,7 +1691,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9093350757910397344, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 38986499}
+    - targetCorrespondingSourceObject: {fileID: 1932580285011136251, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1641453477}
   m_SourcePrefab: {fileID: 100100000, guid: bb1d2b7320cf0264693b52ed6b3c0026, type: 3}
 --- !u!1001 &8103157299261901200
 PrefabInstance:
