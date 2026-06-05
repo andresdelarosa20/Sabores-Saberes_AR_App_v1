@@ -1,23 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TutorialAnimation : MonoBehaviour
 {
-    [Header("Fade")]
-    public Image fadeImage;
+    [Header("Overlay para el parpadeo (Image negro encima de todo)")]
+    public Image overlayImage;
 
-    [Header("Card Movement")]
-    public RectTransform card;
+    [Header("Pantalla que se mueve")]
+    public RectTransform screenRect;
 
-    public Vector2 startPosition;
-    public Vector2 endPosition;
+    public Vector2 screenStartPosition;
+    public Vector2 screenEndPosition;
+    public float screenMoveDuration = 0.4f;
 
-    [Tooltip("Altura m�xima de la curva")]
-    public float arcHeight = 150f;
+    [Range(0f, 0.3f)]
+    public float fadeDuration = 0.08f;
 
-    public float duration = 1f;
+    [Header("Tarjeta que sale volando")]
+    public RectTransform cardOut;
+    public Vector2 cardOutTarget;
+    public float arcHeight = 80f;
+    public float cardOutDuration = 0.35f;
+
+    [Header("Tarjeta nueva que entra")]
+    public RectTransform cardIn;
+    public bool animateCardIn = true;
+    public Vector2 cardInStartOffset = new Vector2(0, -60f);
+    public float cardInDuration = 0.25f;
+
+    private Vector2 cardInFinalPosition;
+
+    private void Start()
+    {
+        if (cardIn != null)
+            cardInFinalPosition = cardIn.anchoredPosition;
+    }
 
     public void PlayAnimation()
     {
@@ -26,45 +44,110 @@ public class TutorialAnimation : MonoBehaviour
 
     private IEnumerator Animate()
     {
-        float time = 0;
+        // 1. Fade IN (oscurecer)
+        yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
 
-        Color startColor = fadeImage.color;
+        // 2. Reset pantalla mientras está oscuro
+        screenRect.anchoredPosition = screenStartPosition;
 
-        card.anchoredPosition = startPosition;
+        // 3. Mover pantalla
+        yield return StartCoroutine(MoveScreen());
 
-        while (time < duration)
+        // 4. Fade OUT (volver a transparente)
+        yield return StartCoroutine(Fade(1f, 0f, fadeDuration));
+
+        // 5. CardOut DESPUÉS del fade
+        yield return StartCoroutine(AnimateCardOut());
+    }
+
+    // FADE
+    private IEnumerator Fade(float alphaFrom, float alphaTo, float dur)
+    {
+        float time = 0f;
+        Color c = overlayImage.color;
+
+        while (time < dur)
         {
             time += Time.deltaTime;
+            float t = Mathf.Clamp01(time / dur);
 
-            float t = time / duration;
-
-            // Fade
-            Color c = startColor;
-            c.a = 1 - t;
-            fadeImage.color = c;
-
-            // Movimiento curvo
-            float x = Mathf.Lerp(
-                startPosition.x,
-                endPosition.x,
-                t
-            );
-
-            float y = Mathf.Lerp(
-                startPosition.y,
-                endPosition.y,
-                t
-            );
-
-            // Curva parab�lica
-            y += arcHeight * 4 * t * (1 - t);
-
-            card.anchoredPosition =
-                new Vector2(x, y);
+            c.a = Mathf.Lerp(alphaFrom, alphaTo, t);
+            overlayImage.color = c;
 
             yield return null;
         }
 
-        card.anchoredPosition = endPosition;
+        c.a = alphaTo;
+        overlayImage.color = c;
+    }
+
+    // MOVIMIENTO DE PANTALLA
+    private IEnumerator MoveScreen()
+    {
+        float time = 0f;
+
+        while (time < screenMoveDuration)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.Clamp01(time / screenMoveDuration);
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            screenRect.anchoredPosition =
+                Vector2.Lerp(screenStartPosition, screenEndPosition, t);
+
+            yield return null;
+        }
+
+        screenRect.anchoredPosition = screenEndPosition;
+    }
+
+    // CARD OUT
+    private IEnumerator AnimateCardOut()
+    {
+        Vector2 startPos = cardOut.anchoredPosition;
+        float time = 0f;
+
+        while (time < cardOutDuration)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.Clamp01(time / cardOutDuration);
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            float x = Mathf.Lerp(startPos.x, cardOutTarget.x, t);
+            float y = Mathf.Lerp(startPos.y, cardOutTarget.y, t);
+
+            // arco
+            y += arcHeight * 4f * t * (1f - t);
+
+            cardOut.anchoredPosition = new Vector2(x, y);
+
+            yield return null;
+        }
+
+        cardOut.anchoredPosition = cardOutTarget;
+        cardOut.gameObject.SetActive(false);
+    }
+
+    // CARD IN (no se usa aún en el flujo)
+    private IEnumerator AnimateCardIn()
+    {
+        Vector2 startPos = cardInFinalPosition + cardInStartOffset;
+        cardIn.anchoredPosition = startPos;
+
+        float time = 0f;
+
+        while (time < cardInDuration)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.Clamp01(time / cardInDuration);
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            cardIn.anchoredPosition =
+                Vector2.Lerp(startPos, cardInFinalPosition, t);
+
+            yield return null;
+        }
+
+        cardIn.anchoredPosition = cardInFinalPosition;
     }
 }
