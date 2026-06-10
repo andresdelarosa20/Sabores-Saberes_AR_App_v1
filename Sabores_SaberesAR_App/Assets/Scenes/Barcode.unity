@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 0.01
+  lineWidth: 2
 --- !u!114 &70680786
 MonoBehaviour:
   m_ObjectHideFlags: 0

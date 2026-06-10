@@ -51,20 +51,38 @@ public class BarcodeOutline : MonoBehaviour
 
         currentVertices = vertices;
         lineRenderer.enabled = true;
-        lineRenderer.SetPositions(vertices);
+
+        // Convertir de local a world space
+        Vector3[] worldVertices = new Vector3[vertices.Length];
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            worldVertices[i] = transform.TransformPoint(vertices[i]);
+        }
+
+        lineRenderer.SetPositions(worldVertices);
     }
 
     void Update()
     {
-        // Si no hay vértices activos, ocultar
+        if (barcodeBehaviour == null) return;
+
         if (barcodeBehaviour.InstanceData == null ||
             string.IsNullOrEmpty(barcodeBehaviour.InstanceData.Text))
         {
-            if (lineRenderer.enabled)
+            lineRenderer.enabled = false;
+            currentVertices = null;
+            return;
+        }
+
+        // Redibujar cada frame si hay vértices guardados
+        if (currentVertices != null && lineRenderer.enabled)
+        {
+            Vector3[] worldVertices = new Vector3[currentVertices.Length];
+            for (int i = 0; i < currentVertices.Length; i++)
             {
-                lineRenderer.enabled = false;
-                currentVertices = null;
+                worldVertices[i] = transform.TransformPoint(currentVertices[i]);
             }
+            lineRenderer.SetPositions(worldVertices);
         }
     }
 
