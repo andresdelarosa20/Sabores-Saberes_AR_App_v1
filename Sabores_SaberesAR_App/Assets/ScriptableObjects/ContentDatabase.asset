@@ -14,12 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - barcodeValue: 7702993052310
-    title: EJEMPLO 1
-    description: TEXT EJEMPLO 1
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
+    title: 'RECURSO: AGUA'
+    titlecard1: Tinaja
+    titlecard2: Totumo
+    titlecard3: Agua
+    descriptionimage1: "Vasija grande de barro o arcilla, con el vientre muy ancho
+      y la boca y el fondo estrechos. Tradicionalmente se utiliza para almacenar,
+      enfriar y conservar l\xEDquidos o alimentos s\xF3lidos como granos. "
+    descriptionimage2: "Es el fruto del \xE1rbol Crescentia cujete, originario de
+      las regiones tropicales de Am\xE9rica. Una vez que el fruto se seca, se vac\xEDa
+      y se corta la corteza (que queda dura y resistente), se utiliza para fabricar
+      recipientes, tazas, platos, maracas y diversos art\xEDculos decorativos o utilitarios. "
+    descriptionimage3: "El agua es el pilar invisible y fundamental de la gastronom\xEDa
+      colombiana. No solo es vital para t\xE9cnicas de cocci\xF3n y limpieza, sino
+      que protagoniza bebidas hist\xF3ricas, define la identidad de los caldos y
+      sopas tradicionales, y est\xE1 \xEDntimamente ligada a la riqueza de los ecosistemas
+      del pa\xEDs."
+    image: {fileID: 21300000, guid: b9d905deb5f39564386c48fbe3ae5943, type: 3}
+    imagecard1: {fileID: 21300000, guid: 62caae95a35970e4798bb3477572cbc2, type: 3}
+    imagecard2: {fileID: 21300000, guid: 3ef3ea5340bb10544abfb6fd9c1f6824, type: 3}
+    imagecard3: {fileID: 21300000, guid: fc389d93fd8ce2e47ac040adddf4a2a0, type: 3}
     audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
   - barcodeValue: https://www.super.com.co
     title: EJEMPLO 2
-    description: TEXT EJEMPLO 2
+    titlecard1: 
+    titlecard2: 
+    titlecard3: 
+    descriptionimage1: 
+    descriptionimage2: 
+    descriptionimage3: 
     image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
+    imagecard1: {fileID: 0}
+    imagecard2: {fileID: 0}
+    imagecard3: {fileID: 0}
     audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}

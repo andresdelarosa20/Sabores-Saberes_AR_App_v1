@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// ESCENA: InfoScreen
@@ -9,48 +10,74 @@ using TMPro;
 /// Jerarquía del Canvas:
 ///
 /// [Canvas]
-/// ├── TitleText              (TextMeshProUGUI)
-/// ├── DescriptionText        (TextMeshProUGUI)
-/// ├── ContentImage           (Image)
+/// ├── TitleText                  (TextMeshProUGUI)
+/// ├── DescriptionText            (TextMeshProUGUI)
+/// ├── ContentImage               (Image)
+/// ├── TitleCard1                 (TextMeshProUGUI)
+/// ├── TitleCard2                 (TextMeshProUGUI)
+/// ├── TitleCard3                 (TextMeshProUGUI)
+/// ├── DescriptionImage1          (TextMeshProUGUI)
+/// ├── DescriptionImage2          (TextMeshProUGUI)
+/// ├── DescriptionImage3          (TextMeshProUGUI)
+/// ├── ImageCard1                 (Image)
+/// ├── ImageCard2                 (Image)
+/// ├── ImageCard3                 (Image)
 /// └── AudioPlayer
-///     ├── TimeSlider         (Slider)  ← el usuario arrastra para ir a cualquier segundo
-///     ├── CurrentTimeText    (TextMeshProUGUI)  ← "0:32"
-///     ├── TotalTimeText      (TextMeshProUGUI)  ← "3:45"
-///     ├── BtnRewind          (Button)  ← retrocede seekSeconds
-///     ├── BtnPlayPause       (Button)  ← play / pausa
-///     └── BtnForward         (Button)  ← adelanta seekSeconds
+///     ├── TimeSlider             (Slider)
+///     ├── CurrentTimeText        (TextMeshProUGUI)
+///     ├── TotalTimeText          (TextMeshProUGUI)
+///     ├── BtnRewind              (Button)
+///     ├── BtnPlayPause           (Button)
+///     │     └── Image            ← el Image del botón que cambia de sprite
+///     └── BtnForward             (Button)
 /// [BtnBack] (Button, fuera del player)
-///
-/// GameObject "InfoScreenManager":
-///   - Este script (InfoScreen.cs)
-///   - AudioSource  ← Unity necesita este componente para REPRODUCIR el clip
-///                     que viene de la base de datos. Sin él no hay sonido.
 /// </summary>
 public class InfoScreen : MonoBehaviour
 {
-    [Header("UI - Información")]
+    [Header("UI - Información principal")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
-    [SerializeField] private Image           contentImage;
+    [SerializeField] private Image contentImage;
+
+    [Header("UI - Cards (títulos)")]
+    [SerializeField] private TextMeshProUGUI titleCard1Text;
+    [SerializeField] private TextMeshProUGUI titleCard2Text;
+    [SerializeField] private TextMeshProUGUI titleCard3Text;
+
+    [Header("UI - Cards (descripciones)")]
+    [SerializeField] private TextMeshProUGUI descriptionImage1Text;
+    [SerializeField] private TextMeshProUGUI descriptionImage2Text;
+    [SerializeField] private TextMeshProUGUI descriptionImage3Text;
+
+    [Header("UI - Cards (imágenes)")]
+    [SerializeField] private Image imageCard1;
+    [SerializeField] private Image imageCard2;
+    [SerializeField] private Image imageCard3;
 
     [Header("UI - Reproductor")]
-    [SerializeField] private Slider          timeSlider;        // El usuario arrastra aquí
-    [SerializeField] private TextMeshProUGUI currentTimeText;   // "0:32"
-    [SerializeField] private TextMeshProUGUI totalTimeText;     // "3:45"
-    [SerializeField] private Button          btnPlayPause;
-    [SerializeField] private Button          btnRewind;
-    [SerializeField] private Button          btnForward;
-    [SerializeField] private float           seekSeconds = 10f; // Cuánto salta cada botón
+    [SerializeField] private Slider timeSlider;
+    [SerializeField] private TextMeshProUGUI currentTimeText;
+    [SerializeField] private TextMeshProUGUI totalTimeText;
+    [SerializeField] private Button btnPlayPause;
+    [SerializeField] private Button btnRewind;
+    [SerializeField] private Button btnForward;
+    [SerializeField] private float seekSeconds = 10f;
+
+    [Header("UI - Sprites Play/Pause")]
+    [Tooltip("Sprite que se muestra cuando el audio está REPRODUCIÉNDOSE (ícono de pausa)")]
+    [SerializeField] private Sprite spritePause;   // ícono ⏸ (se muestra cuando está playing)
+    [Tooltip("Sprite que se muestra cuando el audio está PAUSADO (ícono de play)")]
+    [SerializeField] private Sprite spritePlay;    // ícono ▶ (se muestra cuando está paused)
 
     [Header("UI - Navegación")]
-    [SerializeField] private Button          btnBack;
+    [SerializeField] private Button btnBack;
 
-    // AudioSource: componente de Unity que reproduce el clip.
-    // El CLIP viene de la base de datos; el AudioSource es el "motor" que lo toca.
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
 
-    private bool _isDraggingSlider = false; // Para no mover el slider mientras el usuario lo arrastra
+    // Image del botón play/pause para cambiar el sprite
+    private Image _btnPlayPauseImage;
+    private bool _isDraggingSlider = false;
 
     // ------------------------------------------------------------------ //
 
@@ -60,79 +87,98 @@ public class InfoScreen : MonoBehaviour
 
         if (content == null)
         {
-            Debug.LogError("[InfoScreen] GameManager.SelectedContent es null. " +
-                           "¿Llegaste aquí sin escanear un QR?");
+            Debug.LogError("[InfoScreen] GameManager.SelectedContent es null.");
             return;
         }
 
-        // --- Poblar la UI con los datos de la base de datos ---
-        if (titleText       != null) titleText.text       = content.title;
-        if (descriptionText != null) descriptionText.text = content.description;
-        if (contentImage    != null && content.image != null)
-            contentImage.sprite = content.image;
+        // ── Información principal ──────────────────────────────────────
+        SetText(titleText, content.title);
+        SetText(descriptionText, content.descriptionimage1);
+        SetText(descriptionText, content.descriptionimage2);
+        SetText(descriptionText, content.descriptionimage3);
+        SetImage(contentImage, content.image);
 
-        // --- Cargar el clip de la DB en el AudioSource y reproducir ---
+        // ── Cards ──────────────────────────────────────────────────────
+        SetText(titleCard1Text, content.titlecard1);
+        SetText(titleCard2Text, content.titlecard2);
+        SetText(titleCard3Text, content.titlecard3);
+
+        SetText(descriptionImage1Text, content.descriptionimage1);
+        SetText(descriptionImage2Text, content.descriptionimage2);
+        SetText(descriptionImage3Text, content.descriptionimage3);
+
+        SetImage(imageCard1, content.imagecard1);
+        SetImage(imageCard2, content.imagecard2);
+        SetImage(imageCard3, content.imagecard3);
+
+        // ── Reproductor ────────────────────────────────────────────────
         if (audioSource != null && content.audioClip != null)
         {
             audioSource.clip = content.audioClip;
             audioSource.Play();
 
-            // Configurar el slider con la duración total del clip
             if (timeSlider != null)
             {
                 timeSlider.minValue = 0f;
                 timeSlider.maxValue = content.audioClip.length;
-                timeSlider.value    = 0f;
+                timeSlider.value = 0f;
             }
 
             if (totalTimeText != null)
                 totalTimeText.text = FormatTime(content.audioClip.length);
         }
 
-        // --- Listeners de botones ---
-        if (btnPlayPause != null) btnPlayPause.onClick.AddListener(TogglePlayPause);
-        if (btnRewind    != null) btnRewind.onClick.AddListener(Rewind);
-        if (btnForward   != null) btnForward.onClick.AddListener(FastForward);
-        if (btnBack      != null) btnBack.onClick.AddListener(GoBack);
+        // ── Imagen del botón play/pause ────────────────────────────────
+        if (btnPlayPause != null)
+        {
+            // Buscar el componente Image en el botón o en su hijo directo
+            _btnPlayPauseImage = btnPlayPause.GetComponent<Image>();
+            if (_btnPlayPauseImage == null)
+                _btnPlayPauseImage = btnPlayPause.GetComponentInChildren<Image>();
 
-        // --- Listeners del slider ---
+            UpdatePlayPauseSprite(); // Sincronizar sprite con el estado inicial
+        }
+
+        // ── Listeners ─────────────────────────────────────────────────
+        if (btnPlayPause != null) btnPlayPause.onClick.AddListener(TogglePlayPause);
+        if (btnRewind != null) btnRewind.onClick.AddListener(Rewind);
+        if (btnForward != null) btnForward.onClick.AddListener(FastForward);
+        if (btnBack != null) btnBack.onClick.AddListener(GoBack);
+
         if (timeSlider != null)
         {
-            // Cuando el usuario EMPIEZA a arrastrar: pausar la actualización automática
             timeSlider.onValueChanged.AddListener(OnSliderDrag);
-
-            // Usamos EventTrigger para detectar cuando suelta el slider
             AddSliderPointerEvents();
         }
     }
 
     // ------------------------------------------------------------------ //
-    // Update: mantiene el slider y el tiempo sincronizados con el audio
 
     void Update()
     {
         if (audioSource == null || audioSource.clip == null) return;
-        if (_isDraggingSlider) return; // No actualizar mientras el usuario arrastra
+        if (_isDraggingSlider) return;
 
-        // Mover el slider al tiempo actual del audio
         if (timeSlider != null)
             timeSlider.value = audioSource.time;
 
-        // Actualizar el texto de tiempo actual
         if (currentTimeText != null)
             currentTimeText.text = FormatTime(audioSource.time);
     }
 
     // ------------------------------------------------------------------ //
-    // Controles de audio
+    //  Controles de audio
 
     public void TogglePlayPause()
     {
         if (audioSource == null) return;
+
         if (audioSource.isPlaying)
             audioSource.Pause();
         else
             audioSource.UnPause();
+
+        UpdatePlayPauseSprite();
     }
 
     public void Rewind()
@@ -148,55 +194,62 @@ public class InfoScreen : MonoBehaviour
     }
 
     // ------------------------------------------------------------------ //
-    // Slider: el usuario arrastra para ir a cualquier segundo
+    //  Sprite del botón play/pause
+
+    /// Actualiza el sprite según si el audio está reproduciéndose o pausado
+    private void UpdatePlayPauseSprite()
+    {
+        if (_btnPlayPauseImage == null) return;
+
+        // Si está reproduciendo → mostrar ícono de PAUSA
+        // Si está pausado      → mostrar ícono de PLAY
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            if (spritePause != null) _btnPlayPauseImage.sprite = spritePause;
+        }
+        else
+        {
+            if (spritePlay != null) _btnPlayPauseImage.sprite = spritePlay;
+        }
+    }
+
+    // ------------------------------------------------------------------ //
+    //  Slider
 
     void OnSliderDrag(float value)
     {
-        // Solo actualiza el texto mientras arrastra, no mueve el audio todavía
         if (currentTimeText != null)
             currentTimeText.text = FormatTime(value);
     }
 
-    void OnSliderPointerDown()
-    {
-        _isDraggingSlider = true;
-    }
+    void OnSliderPointerDown() => _isDraggingSlider = true;
 
     void OnSliderPointerUp()
     {
         _isDraggingSlider = false;
-
-        // Cuando suelta, saltar al segundo seleccionado
         if (audioSource != null && timeSlider != null)
             audioSource.time = timeSlider.value;
     }
 
-    /// Agrega los eventos de puntero al slider usando EventTrigger
     void AddSliderPointerEvents()
     {
         var trigger = timeSlider.gameObject.GetComponent<UnityEngine.EventSystems.EventTrigger>();
         if (trigger == null)
             trigger = timeSlider.gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
 
-        // PointerDown
         var down = new UnityEngine.EventSystems.EventTrigger.Entry
-        {
-            eventID = UnityEngine.EventSystems.EventTriggerType.PointerDown
-        };
+        { eventID = UnityEngine.EventSystems.EventTriggerType.PointerDown };
         down.callback.AddListener((_) => OnSliderPointerDown());
         trigger.triggers.Add(down);
 
-        // PointerUp
         var up = new UnityEngine.EventSystems.EventTrigger.Entry
-        {
-            eventID = UnityEngine.EventSystems.EventTriggerType.PointerUp
-        };
+        { eventID = UnityEngine.EventSystems.EventTriggerType.PointerUp };
         up.callback.AddListener((_) => OnSliderPointerUp());
         trigger.triggers.Add(up);
     }
 
     // ------------------------------------------------------------------ //
-    // Navegación
+    //  Navegación
 
     public void GoBack()
     {
@@ -205,9 +258,27 @@ public class InfoScreen : MonoBehaviour
     }
 
     // ------------------------------------------------------------------ //
-    // Utilidades
+    //  Helpers
 
-    /// Convierte segundos a formato "M:SS"  ej: 93.5 → "1:33"
+    /// Asigna texto solo si el campo UI y el valor existen
+    private void SetText(TextMeshProUGUI field, string value)
+    {
+        if (field == null) return;
+        field.text = value ?? "";
+
+        // Ocultar el GameObject si no hay contenido
+        field.gameObject.SetActive(!string.IsNullOrEmpty(value));
+    }
+
+    /// Asigna un sprite a una Image; oculta el GameObject si no hay sprite
+    private void SetImage(Image field, Sprite sprite)
+    {
+        if (field == null) return;
+        field.sprite = sprite;
+        field.gameObject.SetActive(sprite != null);
+    }
+
+    /// Convierte segundos a "M:SS"
     string FormatTime(float seconds)
     {
         int m = Mathf.FloorToInt(seconds / 60f);
@@ -215,12 +286,14 @@ public class InfoScreen : MonoBehaviour
         return $"{m}:{s:00}";
     }
 
+    // ------------------------------------------------------------------ //
+
     void OnDestroy()
     {
         if (btnPlayPause != null) btnPlayPause.onClick.RemoveListener(TogglePlayPause);
-        if (btnRewind    != null) btnRewind.onClick.RemoveListener(Rewind);
-        if (btnForward   != null) btnForward.onClick.RemoveListener(FastForward);
-        if (btnBack      != null) btnBack.onClick.RemoveListener(GoBack);
-        if (timeSlider   != null) timeSlider.onValueChanged.RemoveListener(OnSliderDrag);
+        if (btnRewind != null) btnRewind.onClick.RemoveListener(Rewind);
+        if (btnForward != null) btnForward.onClick.RemoveListener(FastForward);
+        if (btnBack != null) btnBack.onClick.RemoveListener(GoBack);
+        if (timeSlider != null) timeSlider.onValueChanged.RemoveListener(OnSliderDrag);
     }
 }
