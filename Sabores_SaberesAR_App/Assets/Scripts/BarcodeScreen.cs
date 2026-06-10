@@ -6,12 +6,10 @@ public class BarcodeScreen : MonoBehaviour
 {
     [Header("Base de datos")]
     [SerializeField] private ContentDatabase database;
-
     [Header("UI (Opcional)")]
     [SerializeField] private GameObject tapPromptObject;
 
     private BarcodeBehaviour barcodeBehaviour;
-
     private string detectedCode = "";
     private bool barcodeDetected = false;
 
@@ -21,47 +19,70 @@ public class BarcodeScreen : MonoBehaviour
 
         if (barcodeBehaviour == null)
         {
-            Debug.LogError("[BarcodeScreen] No se encontró BarcodeBehaviour");
+            Debug.LogError("[BarcodeScreen] No se encontró BarcodeBehaviour en este GameObject");
             return;
         }
 
         SetTapPromptVisible(false);
-
         Debug.Log("[BarcodeScreen] Iniciado correctamente");
     }
 
     void Update()
     {
-        if (barcodeBehaviour == null)
-            return;
+        if (barcodeBehaviour == null) return;
+        if (Camera.main == null) return;
 
-        if (barcodeBehaviour.InstanceData != null)
+        // Detectar si este QR específico está siendo trackeado
+        if (barcodeBehaviour.InstanceData != null &&
+            !string.IsNullOrEmpty(barcodeBehaviour.InstanceData.Text))
         {
             detectedCode = barcodeBehaviour.InstanceData.Text;
-            barcodeDetected = !string.IsNullOrEmpty(detectedCode);
-
-            if (barcodeDetected)
-            {
-                Debug.Log("[BarcodeScreen] Código detectado: " + detectedCode);
-                SetTapPromptVisible(true);
-            }
+            barcodeDetected = true;
+            SetTapPromptVisible(true);
         }
         else
         {
-            barcodeDetected = false;
             detectedCode = "";
+            barcodeDetected = false;
             SetTapPromptVisible(false);
+            return;
         }
 
-        if (!barcodeDetected)
-            return;
+        // Detectar tap solo cuando este QR está activo
+        bool tapped = false;
 
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
+        {
+            // Verificar que el click esté sobre este QR con raycast
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider != null &&
+                    hit.collider.GetComponent<BarcodeBehaviour>() == barcodeBehaviour)
+                {
+                    tapped = true;
+                }
+            }
+        }
 #else
         if (Input.touchCount > 0 &&
             Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            Touch touch = Input.GetTouch(0);
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider != null &&
+                    hit.collider.GetComponent<BarcodeBehaviour>() == barcodeBehaviour)
+                {
+                    tapped = true;
+                }
+            }
+        }
 #endif
+
+        if (tapped)
         {
             OnBarcodeTapped();
         }
@@ -82,19 +103,14 @@ public class BarcodeScreen : MonoBehaviour
         if (content != null)
         {
             Debug.Log("[BarcodeScreen] Encontrado: " + content.title);
-
             GameManager.SelectedContent = content;
-
             SceneManager.LoadScene("InfoScreen");
         }
         else
         {
-            Debug.LogWarning("[BarcodeScreen] No existe el código en la DB");
-
+            Debug.LogWarning("[BarcodeScreen] No existe en DB: " + detectedCode);
             foreach (var entry in database.entries)
-            {
                 Debug.Log("[BarcodeScreen] DB contiene: " + entry.barcodeValue);
-            }
         }
     }
 

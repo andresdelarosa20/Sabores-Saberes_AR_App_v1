@@ -32,12 +32,9 @@ public class BarcodeTapHandler : MonoBehaviour
                 // Verifica que el objeto tocado tenga BarcodeBehaviour
                 BarcodeBehaviour hitBarcode = hit.collider.GetComponent<BarcodeBehaviour>();
 
-                if (hitBarcode != null)
+                if (hitBarcode != null && hitBarcode.InstanceData != null)
                 {
-                    // Mostrar texto del barcode
                     barcodeText.text = hitBarcode.InstanceData.Text;
-
-                    // Reproducir beep solo una vez
                     if (!beepPlayed)
                     {
                         beepSound.Play();

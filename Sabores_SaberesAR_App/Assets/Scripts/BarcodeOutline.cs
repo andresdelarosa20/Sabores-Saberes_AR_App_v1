@@ -1,57 +1,76 @@
 using UnityEngine;
 using Vuforia;
 
+[RequireComponent(typeof(BarcodeBehaviour))]
 public class BarcodeOutline : MonoBehaviour
 {
-    [Header("Referencia al Barcode")]
-    [SerializeField] private ObserverBehaviour barcodeTarget;
-
     [Header("Outline")]
-    [SerializeField] private GameObject outlineObject;
+    [SerializeField] private Color outlineColor = Color.white;
+    [SerializeField] private float lineWidth = 0.01f;
 
-    private void Start()
+    private BarcodeBehaviour barcodeBehaviour;
+    private LineRenderer lineRenderer;
+    private Vector3[] currentVertices = null;
+
+    void Start()
     {
-        if (barcodeTarget != null)
+        barcodeBehaviour = GetComponent<BarcodeBehaviour>();
+
+        if (barcodeBehaviour == null)
         {
-            barcodeTarget.OnTargetStatusChanged += OnTargetStatusChanged;
-        }
-
-        if (outlineObject != null)
-            outlineObject.SetActive(false);
-    }
-
-    private void OnTargetStatusChanged(
-        ObserverBehaviour observer,
-        TargetStatus status)
-    {
-        bool tracked =
-            status.Status == Status.TRACKED ||
-            status.Status == Status.EXTENDED_TRACKED;
-
-        if (outlineObject != null)
-            outlineObject.SetActive(tracked);
-    }
-
-    private void Update()
-    {
-        if (barcodeTarget == null || outlineObject == null)
+            Debug.LogError("[BarcodeOutline] No se encontró BarcodeBehaviour");
             return;
+        }
 
-        outlineObject.transform.position =
-            barcodeTarget.transform.position;
+        // Obtener el existente o crear uno nuevo
+        lineRenderer = GetComponent<LineRenderer>();
+        if (lineRenderer == null)
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
 
-        outlineObject.transform.rotation =
-            barcodeTarget.transform.rotation;
+        lineRenderer.loop = true;
+        lineRenderer.positionCount = 4;
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = outlineColor;
+        lineRenderer.endColor = outlineColor;
+        lineRenderer.enabled = false;
 
-        outlineObject.transform.localScale =
-            barcodeTarget.transform.localScale * 1.05f;
+        barcodeBehaviour.OnBarcodeOutlineChanged += OnBarcodeOutlineChanged;
     }
 
-    private void OnDestroy()
+    void OnBarcodeOutlineChanged(Vector3[] vertices)
     {
-        if (barcodeTarget != null)
+        if (vertices == null || vertices.Length < 4)
         {
-            barcodeTarget.OnTargetStatusChanged -= OnTargetStatusChanged;
+            lineRenderer.enabled = false;
+            currentVertices = null;
+            return;
         }
+
+        currentVertices = vertices;
+        lineRenderer.enabled = true;
+        lineRenderer.SetPositions(vertices);
+    }
+
+    void Update()
+    {
+        // Si no hay vértices activos, ocultar
+        if (barcodeBehaviour.InstanceData == null ||
+            string.IsNullOrEmpty(barcodeBehaviour.InstanceData.Text))
+        {
+            if (lineRenderer.enabled)
+            {
+                lineRenderer.enabled = false;
+                currentVertices = null;
+            }
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (barcodeBehaviour != null)
+            barcodeBehaviour.OnBarcodeOutlineChanged -= OnBarcodeOutlineChanged;
     }
 }

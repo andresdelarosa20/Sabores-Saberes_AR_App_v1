@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 70680779}
   - component: {fileID: 70680781}
   - component: {fileID: 70680783}
-  - component: {fileID: 70680784}
   - component: {fileID: 70680785}
+  - component: {fileID: 70680786}
   m_Layer: 0
   m_Name: Barcode
   m_TagString: Untagged
@@ -164,7 +164,7 @@ MonoBehaviour:
   mDetectMultipleBarcodes: 1
   mShowAdvanced: 1
   mShowObservedTypes: 1
-  mPreview: {fileID: 70680785}
+  mPreview: {fileID: 70680786}
 --- !u!4 &70680780
 Transform:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f564fb49380226f4d9606ec76238b87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &70680784
+--- !u!114 &70680785
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,12 +215,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 70680777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46069d6b4e30d464d8e54ea200a5814e, type: 3}
+  m_Script: {fileID: 11500000, guid: 478476659faf2374b8fff2633f813d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barcodeText: {fileID: 0}
-  beepSound: {fileID: 0}
---- !u!114 &70680785
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineWidth: 0.01
+--- !u!114 &70680786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
