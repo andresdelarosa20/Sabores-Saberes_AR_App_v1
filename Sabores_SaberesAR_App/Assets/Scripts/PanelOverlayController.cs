@@ -18,7 +18,11 @@ public class PanelOverlayController : MonoBehaviour
 
     [Header("═══ Opciones ═══")]
     public Vector2 targetPosition = Vector2.zero;
+
+    [Header("═══ Backdrop ═══")]
     [Range(0f, 1f)] public float backdropAlpha = 0.6f;
+    [Tooltip("Color del backdrop — baja el brillo (R,G,B) para hacerlo más oscuro")]
+    public Color backdropColor = new Color(0f, 0f, 0f, 1f);
 
     public enum AnimationType { Fade, ScaleAndFade, SlideFromBottom, SlideFromTop }
     public enum EasingType { Linear, EaseIn, EaseOut, EaseInOut, BackOvershoot, Elastic }
@@ -57,6 +61,11 @@ public class PanelOverlayController : MonoBehaviour
             backdropPanel.alpha = 0f;
             backdropPanel.blocksRaycasts = false;
             backdropPanel.interactable = false;
+
+            // Aplicar color al backdrop (oscurece el fondo)
+            Image backdropImage = backdropPanel.GetComponent<Image>();
+            if (backdropImage != null)
+                backdropImage.color = backdropColor;
 
             // Agregar botón al backdrop solo si no existe todavía
             Button btn = backdropPanel.GetComponent<Button>();
