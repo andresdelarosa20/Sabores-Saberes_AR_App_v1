@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -13,12 +14,19 @@ public class TutorialManager : MonoBehaviour
     public GameObject tutorial3;
     public GameObject tutorial4;
 
+    [Header("═══ Slider ═══")]
+    [Range(0f, 1f)] public float snapThreshold = 0.75f; // Si pasa este punto, completa solo
+    public float snapSpeed = 8f;                         // Velocidad del snap
+
     [Header("═══ Animación ═══")]
     public float showDuration = 0.35f;
     public float hideDuration = 0.25f;
     public AnimationType animationType = AnimationType.ScaleAndFade;
 
     public enum AnimationType { Fade, ScaleAndFade, SlideFromBottom, SlideFromTop }
+
+    private bool _sliderDone = false;
+    private bool _isSnapping = false;
 
     // -------------------------------------------------------
     // INICIALIZACIÓN
@@ -31,16 +39,49 @@ public class TutorialManager : MonoBehaviour
         tutorial4.SetActive(false);
 
         tutorialSlider.value = 0f;
-        tutorialSlider.onValueChanged.AddListener(OnSliderValueChanged);
+
+        // Detectar cuando el usuario suelta el slider
+        EventTrigger trigger = tutorialSlider.GetComponent<EventTrigger>();
+        if (trigger == null)
+            trigger = tutorialSlider.gameObject.AddComponent<EventTrigger>();
+
+        var entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerUp;
+        entry.callback.AddListener((_) => OnSliderReleased());
+        trigger.triggers.Add(entry);
     }
 
     // -------------------------------------------------------
-    // SLIDER
+    // SLIDER — cuando el usuario suelta
     // -------------------------------------------------------
-    void OnSliderValueChanged(float value)
+    void OnSliderReleased()
     {
-        if (value >= 1f)
+        if (_sliderDone || _isSnapping) return;
+
+        if (tutorialSlider.value >= snapThreshold)
+            StartCoroutine(SnapSlider(1f));  // Completa solo hasta el final
+        else
+            StartCoroutine(SnapSlider(0f));  // Regresa al inicio
+    }
+
+    private IEnumerator SnapSlider(float targetValue)
+    {
+        _isSnapping = true;
+
+        while (Mathf.Abs(tutorialSlider.value - targetValue) > 0.005f)
+        {
+            tutorialSlider.value = Mathf.Lerp(tutorialSlider.value, targetValue, Time.deltaTime * snapSpeed * 3f);
+            yield return null;
+        }
+
+        tutorialSlider.value = targetValue;
+        _isSnapping = false;
+
+        if (targetValue >= 1f && !_sliderDone)
+        {
+            _sliderDone = true;
             StartCoroutine(Transition(sliderScreen, tutorial2));
+        }
     }
 
     // -------------------------------------------------------
@@ -64,15 +105,13 @@ public class TutorialManager : MonoBehaviour
     }
 
     // -------------------------------------------------------
-    // TRANSICIÓN: oculta el actual y muestra el siguiente
+    // TRANSICIÓN
     // -------------------------------------------------------
     private IEnumerator Transition(GameObject actual, GameObject siguiente)
     {
-        // 1. Animar salida del actual
         yield return StartCoroutine(AnimateOut(actual));
         actual.SetActive(false);
 
-        // 2. Preparar y animar entrada del siguiente
         siguiente.SetActive(true);
         yield return StartCoroutine(AnimateIn(siguiente));
     }
@@ -97,7 +136,6 @@ public class TutorialManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = EaseOutBack(Mathf.Clamp01(elapsed / showDuration));
-
             cg.alpha = t;
             ApplyShowAnim(rt, t, originalPos);
             yield return null;
@@ -127,7 +165,6 @@ public class TutorialManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = EaseIn(Mathf.Clamp01(elapsed / hideDuration));
-
             cg.alpha = 1f - t;
             ApplyHideAnim(rt, t, originalPos);
             yield return null;
@@ -139,7 +176,7 @@ public class TutorialManager : MonoBehaviour
     }
 
     // -------------------------------------------------------
-    // APLICAR TIPO DE ANIMACIÓN
+    // TIPOS DE ANIMACIÓN
     // -------------------------------------------------------
     private void ApplyShowAnim(RectTransform rt, float t, Vector2 originalPos)
     {

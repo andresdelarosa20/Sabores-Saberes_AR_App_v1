@@ -156,6 +156,8 @@ MonoBehaviour:
   tutorial2: {fileID: 862479017}
   tutorial3: {fileID: 1774416669}
   tutorial4: {fileID: 1395351698}
+  snapThreshold: 0.585
+  snapSpeed: 8
   showDuration: 0.35
   hideDuration: 0.25
   animationType: 1
