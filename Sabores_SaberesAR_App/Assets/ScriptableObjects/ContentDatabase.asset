@@ -50,7 +50,7 @@ MonoBehaviour:
     descriptionimage3: "Utensilio tejido utilizado para limpiar, ventilar y seleccionar
       granos. Mediante movimientos manuales permite separar impurezas y preparar
       el ma\xEDz antes de iniciar los procesos de molienda o trituraci\xF3n."
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
+    image: {fileID: 21300000, guid: 6a7ded5e6f6b5cf4284774af48e0ac00, type: 3}
     imagecard1: {fileID: 21300000, guid: 7262dd2653f717544ad116295fcce951, type: 3}
     imagecard2: {fileID: 21300000, guid: f0d6a54337c126944b0ec84651f83ac1, type: 3}
     imagecard3: {fileID: 21300000, guid: 75729fc8139d41d41bb3431cf3930dfb, type: 3}
@@ -70,7 +70,7 @@ MonoBehaviour:
       a partir de arcilla moldeada y cocida a altas temperaturas. Adem\xE1s de servir
       alimentos, reflejan t\xE9cnicas tradicionales y conocimientos transmitidos
       entre generaciones, formando parte del patrimonio culinario y cultural colombiano."
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
+    image: {fileID: 21300000, guid: c05defab4a1bcb04dbb6368b9fd9afc8, type: 3}
     imagecard1: {fileID: 21300000, guid: fd2db9cc5ee201042b4dd8f3d0ef597a, type: 3}
     imagecard2: {fileID: 21300000, guid: e0d59e488bfaca04685c584c6b0c95c5, type: 3}
     imagecard3: {fileID: 21300000, guid: 2b727410c6d98e24680e0642669f8d8b, type: 3}
@@ -90,7 +90,7 @@ MonoBehaviour:
     descriptionimage3: "Recipiente met\xE1lico utilizado para cocinar la mezcla de
       coco, az\xFAcar o panela. Su profundidad permite remover constantemente la
       preparaci\xF3n hasta alcanzar la consistencia adecuada para formar las cocadas."
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
+    image: {fileID: 21300000, guid: 0e05f42be9172094e802c214b9f1b413, type: 3}
     imagecard1: {fileID: 21300000, guid: d94b7ea140e5fc344b5bd7be7757bf47, type: 3}
     imagecard2: {fileID: 21300000, guid: 4811017c2e2adaf4592d4d471662d7f0, type: 3}
     imagecard3: {fileID: 21300000, guid: 9b0ffb3272c01ff468cf0e158f70be38, type: 3}
@@ -112,7 +112,7 @@ MonoBehaviour:
       servido para transportar, almacenar y proteger productos alimenticios. Estas
       t\xE9cnicas reflejan conocimientos ancestrales ligados al entorno y al aprovechamiento
       sostenible de los recursos."
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
+    image: {fileID: 21300000, guid: 0633c1e0d1e39074e8fdaf284a155304, type: 3}
     imagecard1: {fileID: 21300000, guid: 8526a2f6569e11f46a91278b8b5d0a76, type: 3}
     imagecard2: {fileID: 21300000, guid: abef54dadd9f76e49948f9e3c4267a54, type: 3}
     imagecard3: {fileID: 21300000, guid: dcc74deeff7790d4fbb1b256e8228149, type: 3}
