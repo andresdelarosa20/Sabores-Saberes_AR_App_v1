@@ -8,7 +8,7 @@ public class ContentDatabase : ScriptableObject
 
     public ContentData GetByBarcode(string code)
     {
-        if (entries == null) return null;
-        return entries.Find(e => e.barcodeValue == code);
+        string clean = code.Trim().ToUpper();
+        return entries.Find(e => e.barcodeValue.Trim().ToUpper() == clean);
     }
 }

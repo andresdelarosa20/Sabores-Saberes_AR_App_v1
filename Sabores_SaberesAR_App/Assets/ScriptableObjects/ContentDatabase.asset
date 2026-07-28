@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ContentDatabase
   m_EditorClassIdentifier: 
   entries:
-  - barcodeValue: 7702993052310
+  - barcodeValue: RECURSO AGUA
     title: 'RECURSO: AGUA'
     titlecard1: Tinaja
     titlecard2: Totumo
@@ -34,56 +34,86 @@ MonoBehaviour:
     imagecard1: {fileID: 21300000, guid: 62caae95a35970e4798bb3477572cbc2, type: 3}
     imagecard2: {fileID: 21300000, guid: 3ef3ea5340bb10544abfb6fd9c1f6824, type: 3}
     imagecard3: {fileID: 21300000, guid: fc389d93fd8ce2e47ac040adddf4a2a0, type: 3}
-    audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
+    audioClip: {fileID: 8300000, guid: 8c8b139b53f8730409d23ade5060c930, type: 3}
   - barcodeValue: TECNICA
     title: TECNICA
-    titlecard1: 
-    titlecard2: 
-    titlecard3: 
-    descriptionimage1: 
-    descriptionimage2: 
-    descriptionimage3: 
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
-    imagecard1: {fileID: 0}
-    imagecard2: {fileID: 0}
-    imagecard3: {fileID: 0}
-    audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
+    titlecard1: "Pil\xF3n"
+    titlecard2: Molino
+    titlecard3: Balay
+    descriptionimage1: "Instrumento tradicional de madera utilizado para triturar
+      y descascarar granos mediante golpes repetitivos. Ha sido fundamental en la
+      preparaci\xF3n artesanal de masas y alimentos en muchas regiones del Caribe
+      colombiano."
+    descriptionimage2: "Herramienta empleada para transformar granos de ma\xEDz en
+      masa de manera m\xE1s uniforme. Su uso facilita la elaboraci\xF3n de productos
+      tradicionales como arepas, bollos, empanadas y otros alimentos derivados."
+    descriptionimage3: "Utensilio tejido utilizado para limpiar, ventilar y seleccionar
+      granos. Mediante movimientos manuales permite separar impurezas y preparar
+      el ma\xEDz antes de iniciar los procesos de molienda o trituraci\xF3n."
+    image: {fileID: 21300000, guid: 6a7ded5e6f6b5cf4284774af48e0ac00, type: 3}
+    imagecard1: {fileID: 21300000, guid: 7262dd2653f717544ad116295fcce951, type: 3}
+    imagecard2: {fileID: 21300000, guid: f0d6a54337c126944b0ec84651f83ac1, type: 3}
+    imagecard3: {fileID: 21300000, guid: 75729fc8139d41d41bb3431cf3930dfb, type: 3}
+    audioClip: {fileID: 8300000, guid: 09e1b7a11dcdea94891af2cf5415102f, type: 3}
   - barcodeValue: VAJILLA
     title: VAJILLA
-    titlecard1: 
-    titlecard2: 
-    titlecard3: 
-    descriptionimage1: 
-    descriptionimage2: 
-    descriptionimage3: 
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
-    imagecard1: {fileID: 0}
-    imagecard2: {fileID: 0}
-    imagecard3: {fileID: 0}
-    audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
+    titlecard1: Totuma
+    titlecard2: Platos de Peltre
+    titlecard3: "Cer\xE1mica"
+    descriptionimage1: "Recipiente elaborado a partir del fruto seco del \xE1rbol
+      Crescentia cujete. Se utiliza para servir bebidas y alimentos, destac\xE1ndose
+      por ser liviano, resistente y de origen completamente natural."
+    descriptionimage2: Fabricados en metal recubierto con esmalte vitrificado, fueron
+      muy populares en las cocinas colombianas durante el siglo XX por su durabilidad,
+      facilidad de limpieza y resistencia al uso diario.
+    descriptionimage3: "Los platos de cer\xE1mica son piezas elaboradas artesanalmente
+      a partir de arcilla moldeada y cocida a altas temperaturas. Adem\xE1s de servir
+      alimentos, reflejan t\xE9cnicas tradicionales y conocimientos transmitidos
+      entre generaciones, formando parte del patrimonio culinario y cultural colombiano."
+    image: {fileID: 21300000, guid: c05defab4a1bcb04dbb6368b9fd9afc8, type: 3}
+    imagecard1: {fileID: 21300000, guid: fd2db9cc5ee201042b4dd8f3d0ef597a, type: 3}
+    imagecard2: {fileID: 21300000, guid: e0d59e488bfaca04685c584c6b0c95c5, type: 3}
+    imagecard3: {fileID: 21300000, guid: 2b727410c6d98e24680e0642669f8d8b, type: 3}
+    audioClip: {fileID: 8300000, guid: 0f405c00519f04b42980361b1e1d6bc8, type: 3}
   - barcodeValue: RECETAS
     title: RECETAS
-    titlecard1: 
-    titlecard2: 
-    titlecard3: 
-    descriptionimage1: 
-    descriptionimage2: 
-    descriptionimage3: 
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
-    imagecard1: {fileID: 0}
-    imagecard2: {fileID: 0}
-    imagecard3: {fileID: 0}
+    titlecard1: Picapanela
+    titlecard2: Rallador
+    titlecard3: Caldero
+    descriptionimage1: "Herramienta utilizada para fragmentar bloques de panela en
+      trozos m\xE1s peque\xF1os. Facilita su disoluci\xF3n durante la preparaci\xF3n
+      de dulces tradicionales como las cocadas, aportando el sabor caracter\xEDstico
+      de este ingrediente."
+    descriptionimage2: "Utensilio empleado para extraer la pulpa del coco. El tama\xF1o
+      del rallado influye en la textura final de la cocada, permitiendo obtener diferentes
+      acabados seg\xFAn la receta y la tradici\xF3n familiar."
+    descriptionimage3: "Recipiente met\xE1lico utilizado para cocinar la mezcla de
+      coco, az\xFAcar o panela. Su profundidad permite remover constantemente la
+      preparaci\xF3n hasta alcanzar la consistencia adecuada para formar las cocadas."
+    image: {fileID: 21300000, guid: 0e05f42be9172094e802c214b9f1b413, type: 3}
+    imagecard1: {fileID: 21300000, guid: d94b7ea140e5fc344b5bd7be7757bf47, type: 3}
+    imagecard2: {fileID: 21300000, guid: 4811017c2e2adaf4592d4d471662d7f0, type: 3}
+    imagecard3: {fileID: 21300000, guid: 9b0ffb3272c01ff468cf0e158f70be38, type: 3}
     audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
   - barcodeValue: LABOR ARTESANAL
     title: LABOR ARTESANAL
-    titlecard1: 
-    titlecard2: 
-    titlecard3: 
-    descriptionimage1: 
-    descriptionimage2: 
-    descriptionimage3: 
-    image: {fileID: 21300000, guid: ee4471a79fa3fe04fa18c7d2779f9385, type: 3}
-    imagecard1: {fileID: 0}
-    imagecard2: {fileID: 0}
-    imagecard3: {fileID: 0}
-    audioClip: {fileID: 8300000, guid: 8d0bf4538ade8214988f64203e0e2508, type: 3}
+    titlecard1: "Cer\xE1mica"
+    titlecard2: Madera
+    titlecard3: Tejido
+    descriptionimage1: "La cer\xE1mica tradicional se elabora con barro moldeado
+      y cocido al fuego. Con ella se fabrican ollas, tinajas y otros recipientes
+      que permiten cocinar y conservar alimentos, manteniendo pr\xE1cticas culinarias
+      heredadas de generaciones anteriores."
+    descriptionimage2: "La madera ha sido uno de los materiales m\xE1s utilizados
+      en la cocina tradicional. Con ella se elaboran pilones, bateas, cucharas y
+      otros utensilios resistentes que facilitan la preparaci\xF3n y manipulaci\xF3n
+      de los alimentos."
+    descriptionimage3: "Los tejidos artesanales elaborados con fibras naturales han
+      servido para transportar, almacenar y proteger productos alimenticios. Estas
+      t\xE9cnicas reflejan conocimientos ancestrales ligados al entorno y al aprovechamiento
+      sostenible de los recursos."
+    image: {fileID: 21300000, guid: 0633c1e0d1e39074e8fdaf284a155304, type: 3}
+    imagecard1: {fileID: 21300000, guid: 8526a2f6569e11f46a91278b8b5d0a76, type: 3}
+    imagecard2: {fileID: 21300000, guid: abef54dadd9f76e49948f9e3c4267a54, type: 3}
+    imagecard3: {fileID: 21300000, guid: dcc74deeff7790d4fbb1b256e8228149, type: 3}
+    audioClip: {fileID: 8300000, guid: e95ddd231cfcc074aaaa4b82e81614d9, type: 3}

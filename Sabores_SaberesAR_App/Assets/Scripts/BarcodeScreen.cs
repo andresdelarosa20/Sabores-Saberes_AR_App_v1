@@ -16,11 +16,18 @@ public class BarcodeScreen : MonoBehaviour
     void Start()
     {
         barcodeBehaviour = GetComponent<BarcodeBehaviour>();
-
         if (barcodeBehaviour == null)
         {
             Debug.LogError("[BarcodeScreen] No se encontró BarcodeBehaviour en este GameObject");
             return;
+        }
+
+        // Asegurar que tenga collider para el raycast
+        if (GetComponent<Collider>() == null)
+        {
+            BoxCollider col = gameObject.AddComponent<BoxCollider>();
+            col.size = new Vector3(1f, 1f, 0.01f);
+            Debug.Log("[BarcodeScreen] Collider agregado automáticamente a " + gameObject.name);
         }
 
         SetTapPromptVisible(false);
@@ -90,6 +97,11 @@ public class BarcodeScreen : MonoBehaviour
 
     void OnBarcodeTapped()
     {
+        // Log forense - agrégalo temporalmente
+        Debug.Log($"[BarcodeScreen] QR bytes: {string.Join(",", System.Text.Encoding.UTF8.GetBytes(detectedCode))}");
+        foreach (var entry in database.entries)
+            Debug.Log($"[BarcodeScreen] DB bytes: {string.Join(",", System.Text.Encoding.UTF8.GetBytes(entry.barcodeValue))}");
+
         Debug.Log("[BarcodeScreen] Buscando: " + detectedCode);
 
         if (database == null)
