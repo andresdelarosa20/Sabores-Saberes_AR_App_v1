@@ -75,7 +75,7 @@ Al escanear piezas u objetos físicos con la cámara del dispositivo, la aplicac
 
 | Inicio | Mapa |
 |--------|------|
-| ![](img/home.png) | ![](img/map.png) |
+| ![](img/home.png) | ![](img/mapa.png) |
 
 | Escáner | Información |
 |---------|-------------|
