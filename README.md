@@ -10,7 +10,7 @@ Aplicación móvil desarrollada en **Unity** y **Vuforia** que transforma la vis
   <img src="./img/CasaATIAPP.gif" alt="Demo de Casa ATI AR" width="300">
 </p>
 
-> 📱 **Demostración de la aplicación en funcionamiento**
+>  **Demostración de la aplicación en funcionamiento**
 
 ![Unity](https://img.shields.io/badge/Unity-2022-black?logo=unity)
 ![C#](https://img.shields.io/badge/C%23-239120?logo=csharp&logoColor=white)
@@ -21,30 +21,30 @@ Aplicación móvil desarrollada en **Unity** y **Vuforia** que transforma la vis
 
 ---
 
-# 📖 Descripción
+# Descripción
 
 **Casa ATI AR** es una aplicación diseñada para enriquecer la experiencia de los visitantes de la Casa de Cultura mediante tecnologías de Realidad Aumentada.
 
 Al escanear piezas u objetos físicos con la cámara del dispositivo, la aplicación identifica el elemento y despliega contenido multimedia que incluye:
 
-- 📚 Información histórica
-- 🎧 Narraciones de audio
-- 🏛️ Contexto cultural
-- 📱 Interacción inmersiva
+-  Información histórica
+-  Narraciones de audio
+-  Contexto cultural
+-  Interacción inmersiva
 
 ---
 
-# ✨ Características
+#  Características
 
-- 📷 Reconocimiento de objetos mediante Vuforia.
-- 🏛️ Información cultural contextual.
-- 🔊 Reproducción de narraciones.
-- 📱 Aplicación móvil intuitiva.
-- 🎯 Experiencia de aprendizaje inmersiva.
+-  Reconocimiento de objetos mediante Vuforia.
+-  Información cultural contextual.
+-  Reproducción de narraciones.
+-  Aplicación móvil intuitiva.
+-  Experiencia de aprendizaje inmersiva.
 
 ---
 
-# 🎯 Objetivos del proyecto
+#  Objetivos del proyecto
 
 - Analizar el espacio museográfico.
 - Integrar objetos culturales dentro de una experiencia AR.
@@ -53,7 +53,7 @@ Al escanear piezas u objetos físicos con la cámara del dispositivo, la aplicac
 
 ---
 
-# 🛠️ Tecnologías
+# Tecnologías
 
 | Tecnología | Uso |
 |------------|-----|
@@ -64,7 +64,7 @@ Al escanear piezas u objetos físicos con la cámara del dispositivo, la aplicac
 
 ---
 
-# 📱 Funcionamiento
+# Funcionamiento
 
 1. El usuario abre la aplicación.
 2. Selecciona el modo de escaneo.
@@ -75,7 +75,7 @@ Al escanear piezas u objetos físicos con la cámara del dispositivo, la aplicac
 
 ---
 
-# 📸 Capturas
+# Capturas
 
 > Próximamente se añadirán las pantallas del proyecto.
 
@@ -89,7 +89,7 @@ Al escanear piezas u objetos físicos con la cámara del dispositivo, la aplicac
 
 ---
 
-# 🚀 Instalación
+# Instalación
 
 ```bash
 git clone https://github.com/usuario/casa-ati-ar
@@ -105,7 +105,7 @@ Instalar apk en celular android e instalar.
 
 ---
 
-# 📂 Estructura
+# Estructura
 
 ```
 Assets/
@@ -121,7 +121,7 @@ Assets/
 
 ---
 
-# 🌟 Beneficios
+# Beneficios
 
 - Mayor interacción con el patrimonio.
 - Aprendizaje inmersivo.
