@@ -75,11 +75,11 @@ Al escanear piezas u objetos físicos con la cámara del dispositivo, la aplicac
 
 | Inicio | Mapa |
 |--------|------|
-| ![](docs/home.png) | ![](docs/map.png) |
+| ![](img/home.png) | ![](img/mapa.png) |
 
 | Escáner | Información |
 |---------|-------------|
-| ![](docs/scan.png) | ![](docs/info.png) |
+| ![](img/barcode.png) | ![](img/info.png) |
 
 ---
 
@@ -93,6 +93,8 @@ Abrir el proyecto con Unity.
 Configurar Vuforia.
 
 Compilar para Android.
+
+Instalar apk en celular android e instalar.
 ```
 
 ---
