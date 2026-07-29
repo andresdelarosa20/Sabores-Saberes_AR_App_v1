@@ -7,7 +7,7 @@
 Aplicación móvil desarrollada en **Unity** y **Vuforia** que transforma la visita a la Casa de Cultura en una experiencia interactiva e inmersiva.
 
 <p align="center">
-  <img src="img/CasaATIAPP.gif" alt="Demo de Casa ATI AR" width="700">
+  <img src="./img/CasaATIAPP.gif" alt="Demo de Casa ATI AR" width="700">
 </p>
 
 > 📱 **Demostración de la aplicación en funcionamiento**
